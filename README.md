@@ -1,7 +1,7 @@
 File Manager and Editor
 =======================
 
-A fantastic mobile-friendly file manager, code editor, and file previewer for the web.  Can be used to create HTML/CSS/Javascript embeds for websites, a web-based file sharing portal, and much more.  Choose from a MIT or LGPL license.
+A fantastic mobile-friendly, web-based file manager, code editor, and file previewer.  Can be used to create HTML/CSS/Javascript embeds for websites, a web-based file sharing portal, and much more.  Choose from a MIT or LGPL license.
 
 ![File Manager and Editor](https://user-images.githubusercontent.com/1432111/90663402-73dc9480-e1fe-11ea-8ea6-d5952d177f15.png)
 
