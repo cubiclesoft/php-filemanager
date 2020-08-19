@@ -1,0 +1,20 @@
+html, body { height: 100%; margin: 0px; padding: 0px; overflow: hidden; background-color: #FFFFFF; }
+body { font-family: Verdana, Arial, Helvetica, sans-serif; position: relative; }
+
+#sidebarwrap { float: left; width: 350px; min-width: 200px; max-width: 25%; height: 100%; overflow: auto; border-right: 1px solid #CCCCCC; font-size: 0.9em; }
+#sidebarwrap a { display: block; padding: 0.3em 0.5em; color: #035488; text-decoration: none; background-color: #FAFAFA; }
+#sidebarwrap a.altrow { background-color: #F5F5F5; }
+#sidebarwrap a:hover { background-color: #EEEEEE; }
+#sidebarwrap a.selected { color: #FEFEFE; background-color: #035488; }
+#sidebarwrap a.selected:hover { background-color: #035488; }
+
+#topbarwrap { border-bottom: 1px solid #CCCCCC; font-size: 0.9em; padding: 0.7em; overflow: hidden; }
+#maincontentwrap { overflow: auto; }
+#bottombarwrap { border-top: 1px solid #CCCCCC; font-size: 0.9em; padding: 0.7em; overflow: hidden; }
+
+#ajaxhidden { display: none; }
+
+@media (max-width: 600px) {
+	html, body { overflow: auto; }
+	#sidebarwrap { float: none; width: auto; min-width: 0; max-width: none; height: 60%; border-right: none; border-bottom: 1px solid #CCCCCC; }
+}

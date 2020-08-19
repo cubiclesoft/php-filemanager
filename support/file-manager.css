@@ -1,0 +1,59 @@
+.fm_file_editor_hidden { display: none !important; }
+.fm_file_editor_invisible { visibility: hidden; }
+.fm_file_editor_disabled { filter: grayscale(95%); opacity: 0.6; }
+
+.fm_file_editor_wrap { position: relative; font-size: 1.0em; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; height: 100%; min-height: 9em; }
+.fm_file_editor_wrap_inner { height: 100%; display: flex; flex-direction: column; }
+
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap { display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid #DADCE0; cursor: default; }
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap .fm_file_editor_open_files_buttons_wrap { display: flex; align-items: center; margin-left: 5px; }
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap button { margin: 4px 0.3em 4px 0; padding: 3px; border: 1px solid transparent; box-sizing: border-box; line-height: 1; background-color: transparent; outline: none; font-size: 0.75em; white-space: nowrap; }
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap button::-moz-focus-inner { border: 0; }
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap button:not(.fm_file_editor_disabled):hover, .fm_file_editor_wrap .fm_file_editor_open_files_wrap button:not(.fm_file_editor_disabled):focus { border: 1px solid #99D1FF; background-color: #E5F3FF; }
+
+.fm_file_editor_wrap .fm_file_editor_open_files_wrap .fm_file_editor_open_file_explorer_wrap { }
+.fm_file_editor_wrap .fm_file_editor_tab_view_icon { width: 24px; height: 24px; image-rendering: pixelated; }
+.fm_file_editor_wrap .fm_file_editor_preview_icon { background-image: url('file_manager_preview_icon.png'); }
+.fm_file_editor_wrap .fm_file_editor_text_edit_icon { background-image: url('file_manager_text_edit_icon.png'); }
+.fm_file_editor_wrap .fm_file_editor_menu_icon { background-image: url('file_manager_menu_icon.png'); width: 24px; height: 24px; image-rendering: pixelated; }
+
+.fm_file_editor_wrap .fm_file_editor_open_file_tabs_scroll_wrap { flex: 1; position: relative; overflow-x: scroll; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none; margin-left: 7px; height: 100%; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tabs_scroll_wrap::-webkit-scrollbar { height: 0px; background: transparent; }
+
+.fm_file_editor_wrap .fm_file_editor_open_file_tabs_wrap { display: flex; flex: 1; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tabs_wrap::after { content: ''; padding-left: 1px; }
+
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_wrap { display: flex; background-color: #F6F6F6; margin: 4px 0.5em 0 0; border-top: 1px solid #CCCCCC; border-left: 1px solid #CCCCCC; border-right: 1px solid #CCCCCC; padding-bottom: 5px; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_wrap:not(.fm_file_editor_open_file_tab_active):hover, .fm_file_editor_wrap .fm_file_editor_open_file_tab_wrap:not(.fm_file_editor_open_file_tab_active):focus { background-color: #E5F3FF; border-top: 1px solid #99D1FF; border-left: 1px solid #99D1FF; border-right: 1px solid #99D1FF; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_wrap.fm_file_editor_open_file_tab_active { background-color: #FFFFFF; border-top: 1px solid #AAAAAA; border-left: 1px solid #AAAAAA; border-right: 1px solid #AAAAAA; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_filename { padding: 0.6em 0.7em; max-width: 18em; overflow: hidden; text-overflow: ellipsis; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_edit_status, .fm_file_editor_wrap .fm_file_editor_open_file_tab_filename, .fm_file_editor_wrap .fm_file_editor_open_file_tab_close { line-height: 1; font-size: 0.85em; white-space: nowrap; }
+
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active .fm_file_editor_open_file_tab_edit_status { padding: 0.6em 0 0.6em 0.7em; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active .fm_file_editor_open_file_tab_edit_status::after { content: '\2022'; font-weight: bold; outline: none; color: #67CF57; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active.fm_file_editor_open_file_tab_edit_status_edited .fm_file_editor_open_file_tab_edit_status::after { color: #CF5757; }
+
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active:not(.fm_file_editor_open_file_tab_closing) .fm_file_editor_open_file_tab_close { padding: 0.6em 0.7em 0.6em 0; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active:not(.fm_file_editor_open_file_tab_closing) .fm_file_editor_open_file_tab_close::after { content: '\00D7'; font-weight: bold; outline: none; }
+.fm_file_editor_wrap .fm_file_editor_open_file_tab_active:not(.fm_file_editor_open_file_tab_closing) .fm_file_editor_open_file_tab_close:hover::after, .fm_file_editor_wrap .fm_file_editor_open_file_tab_close:focus::after { color: #E81123; }
+
+.fm_file_editor_wrap .fm_file_editor_settings_icon { background-image: url('file_manager_settings_icon.png'); width: 24px; height: 24px; image-rendering: pixelated; }
+
+.fm_file_editor_wrap .fm_file_editor_editors_wrap { flex: 1; position: relative; }
+.fm_file_editor_wrap .fm_file_editor_editor_wrap { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.fm_file_editor_wrap .fm_file_editor_browser { width: 100%; height: 100%; }
+
+.fm_file_editor_wrap .fm_file_editor_statusbar_wrap { display: flex; white-space: nowrap; font-size: 0.75em; color: #14273E; border-top: 1px solid #CCCCCC; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_wrap.fm_file_editor_statusbar_wrap_multiline { display: block; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_text_wrap { display: flex; margin-left: 15px; margin-right: 12px; padding-top: 0.3em; padding-bottom: 0.3em; overflow: hidden; flex: 1; line-height: 1.1; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_text_segment_wrap { padding-right: 1em; border-right: 1px solid #DDDDDD; margin-right: 1em; text-align: center; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_text_segment_wrap_last { padding-right: 0; border-right: 0 none; margin-right: 0; overflow: hidden; text-overflow: ellipsis; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_text2_wrap { display: flex; margin-left: 15px; margin-right: 12px; padding-top: 0.3em; padding-bottom: 0.3em; overflow: hidden; line-height: 1.1; font-feature-settings: 'lnum', 'tnum'; font-variant-numeric: lining-nums tabular-nums; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_text2_segment_wrap { padding-left: 1em; border-left: 1px solid #DDDDDD; margin-left: 1em; text-align: center; }
+.fm_file_editor_wrap .fm_file_editor_statusbar_measure_em_size { display: inline-block; position: fixed; left: -9999px; width: 1em; height: 1em; }
+
+.fm_file_editor_wrap .fm_file_editor_clipboard_overlay { position: fixed; left: 0; top: 0; width: 1px; height: 1px; margin: 0; border: 0 none; padding: 0; color: transparent; background-color: transparent; text-shadow: 0px 0px 0px transparent; caret-color: transparent; cursor: default; resize: none; box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none; text-align: center; outline: none; font-size: 1px; line-height: 1; }
+.fm_file_editor_wrap .fm_file_editor_clipboard_overlay::-webkit-scrollbar { width: 0px; height: 0px; background: transparent; }
+
+.fm_file_editor_file_explorer_wrap { position: fixed; width: 98vw; max-width: 1200px; height: 80vh; max-height: 500px; -webkit-box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); -moz-box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); z-index: 1000; }
+.fm_file_editor_file_explorer_wrap_inner { position: relative; height: 100%; }

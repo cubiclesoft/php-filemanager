@@ -1,0 +1,25 @@
+html, body { height: auto; overflow: visible; }
+
+#menuwrap { display: none; }
+#menuwrap.showmenu { display: none; }
+
+#contentwrap { height: auto; overflow: hidden; }
+#contentwrap .proptitlewrap { background-color: #222222; color: #FAFAFA; padding: 0.85em; box-shadow: none; border-bottom: 1px solid #CCCCCC; }
+#contentwrap.showmenu #navoverflowwrap { display: none; }
+#contentwrap #navbutton { display: none; }
+#contentwrap .proptitletext { padding-left: 0em; }
+
+.formitemdata table.formitemtable > thead > tr > th, .formitemdata table.formitemtable > tbody > tr > td { border-top: 1px solid #CCCCCC; }
+.formitemdata table.formitemtable > thead > tr > th:first-child { border-left: 1px solid #CCCCCC; }
+.formitemdata table.formitemtable > thead > tr > th:last-child { border-right: 1px solid #CCCCCC; }
+.formitemdata table.formitemtable > tbody > tr:first-child > td { border-top: 1px solid #CCCCCC; }
+
+form.ff_form .formsubmit input { background-color: #FAFAFA; color: #222222; border: 1px solid #222222; }
+
+.ui-multiselect { width: 100% !important; }
+.formitemdata .ui-multiselect.ui-widget { border: 1px solid #c5c5c5 !important; background: #ffffff !important; color: #222222 !important; }
+
+.multiselect-available-list { display: none; }
+.multiselect-selected-list { left: 0 !important; width: 100% !important; }
+
+.no-print { display: none; }

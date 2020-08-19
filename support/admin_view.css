@@ -1,0 +1,366 @@
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.pagewrap {
+	margin: 0 5px 5px 5px;
+}
+
+.pagewrap .headerwrap {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.7em;
+	border-left: 1px solid #BBBBBB;
+	border-right: 1px solid #BBBBBB;
+	border-bottom: 1px solid #BBBBBB;
+	background-color: #F5F5F5;
+	padding: 0.1em;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	-webkitborder-bottom-right-radius: 3px;
+	-webkitborder-bottom-left-radius: 3px;
+}
+
+.pagewrap .contentwrap {
+	margin-top: 10px;
+}
+
+.pagewrap .menuwrap {
+	margin-top: 7px;
+	border-top: 1px solid #CCCCCC;
+	padding: 25px 0 10px;
+}
+
+/* Basic styles for elements. */
+img {
+	border: 0px none;
+	margin: 0px;
+}
+
+form {
+	border: 0px none;
+	margin: 0px;
+}
+
+a {
+	color: #035488;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #444444;
+	text-decoration: underline;
+}
+
+/* Optional message styles. */
+.message {
+	margin: 10px 7px;
+	font-weight: bold;
+	padding: 7px 15px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.message .success {
+	background-color: #E8FCDC;
+	border: 1px solid #008800;
+	color: #008800;
+}
+
+.message .error {
+	background-color: #FCDCDC;
+	border: 1px solid #880000;
+	color: #880000;
+}
+
+.message .info {
+	background-color: #DCDCDC;
+	border: 1px solid #333333;
+	color: #333333;
+}
+
+.maincontent {
+}
+
+.maincontent .proptitle {
+	font-weight: bold;
+	font-size: 1.3em;
+	color: #1F1F1F;
+}
+
+.maincontent .propdesc {
+	margin-top: 5px;
+	padding: 10px 7px;
+	border-top: 1px solid #CCCCCC;
+	color: #333333;
+	font-size: 1.0em;
+}
+
+.maincontent .propinfo {
+}
+
+.maincontent .propmain {
+	margin: 0px 7px;
+}
+
+.maincontent .propmain .formfields {
+	font-size: 0.9em;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion {
+	margin-bottom: 7px;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion h3.ui-accordion-header {
+	margin-top: 7px;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion h3.ui-state-active {
+	background: url("jquery_ui_themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion .formaccordionitems.ui-accordion-content {
+	padding: 0 14px;
+	background: none;
+	background-color: #FEFEFE;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion .formaccordionitems.ui-widget-content a {
+	color: #035488;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion .formaccordionitems.ui-accordion-content .formitem {
+	margin-top: 6px;
+	border-top: 1px dotted #CCCCCC;
+	padding-top: 6px;
+}
+
+.maincontent .propmain .formfields .formaccordionwrap.ui-accordion .formaccordionitems.ui-accordion-content .formitem.firstitem {
+	border-top: 0;
+}
+
+.maincontent .propmain .formfields .formitem {
+	margin: 0.9em 0 0.5em;
+}
+
+.maincontent .propmain .formfields .formitem .formitemtitle {
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+
+.maincontent .propmain .formfields .formitem .staticwrap, .maincontent .propmain .formfields .formitem .static {
+	margin-left: 7px;
+	width: 95%;
+	font-size: 0.95em;
+	color: #333333;
+}
+
+.maincontent .propmain .formfields .formitem input.text {
+	padding: 0.5em;
+	width: 95%;
+	border: 1px solid #BBBBBB;
+}
+
+.maincontent .propmain .formfields .formitem input.text:hover {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem input.text:focus {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem input.date {
+	padding: 0.5em;
+	max-width: 20em;
+	width: 95%;
+	border: 1px solid #BBBBBB;
+}
+
+.maincontent .propmain .formfields .formitem input.date:hover {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem input.date:focus {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem .textareawrap {
+	width: 95%;
+}
+
+.maincontent .propmain .formfields .formitem textarea.text {
+	padding: 0.3em;
+	width: 100%;
+	border: 1px solid #BBBBBB;
+}
+
+.maincontent .propmain .formfields .formitem textarea.text:hover {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem textarea.text:focus {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem input.checkbox {
+	border: 1px solid #BBBBBB;
+}
+
+.maincontent .propmain .formfields .formitem select {
+	padding: 0.3em;
+	width: 95%;
+	max-width: 750px;
+	border: 1px solid #BBBBBB;
+}
+
+.maincontent .propmain .formfields .formitem select:hover {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem select:focus {
+	border: 1px solid #888888;
+}
+
+.maincontent .propmain .formfields .formitem table.viewtable td {
+	vertical-align: top;
+}
+
+.maincontent .propmain .formfields .formitem table.viewtable td.datakey {
+	padding-right: 2.0em;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.maincontent .propmain .formfields .formitem .formitemdesc {
+	margin-left: 7px;
+	font-size: 0.9em;
+	color: #333333;
+}
+
+.maincontent .propmain .formsubmit {
+	margin: 15px auto;
+	text-align: center;
+}
+
+.maincontent .propmain .formsubmit input.submit {
+	color: #1F1F1F;
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 0.2em 0.5em;
+}
+
+.maincontent .propmain hr {
+	margin-top: 0.7em;
+	border: none 0;
+	border-top: 1px dashed #AAAAAA;
+	height: 1px;
+}
+
+.maincontent .propmain .nontablewrap {
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+}
+
+.maincontent .propmain .nontable_row {
+	background-color: #F5F5F5;
+	border-top: 1px dashed #CCCCCC;
+	padding: 0.5em;
+}
+
+.maincontent .propmain .nontable_row.firstrow {
+	border-top: 1px solid #CCCCCC;
+}
+
+.maincontent .propmain .nontable_row.altrow {
+	background-color: #FEFEFE;
+}
+
+.maincontent .propmain .nontable_th {
+	margin-top: 0.4em;
+	font-weight: bold;
+}
+
+.maincontent .propmain .nontable_th.firstcol {
+	margin-top: 0;
+}
+
+.maincontent .propmain .nontable_td {
+	margin-left: 7px;
+	color: #444444;
+}
+
+.maincontent .propmain .mediawrap {
+	float: right;
+	margin-left: 2.0em;
+	max-width: 45%;
+	margin-bottom: 0.5em;
+}
+
+@media (max-width: 600px) {
+	.maincontent .propmain .mediawrap {
+		float: none;
+		margin-left: 0;
+		max-width: none;
+	}
+}
+
+.maincontent .propmain .mediawrap .mediaitemtitle {
+	font-weight: bold;
+	margin-bottom: 0.3em;
+}
+
+.maincontent .propmain .mediawrap .mediaitem {
+	max-width: 100%;
+}
+
+.maincontent .propmain .mediawrap .mediaitemdesc {
+	font-size: 0.9em;
+	color: #333333;
+}
+
+/* Optional menu navigation styles. */
+.menuwrap {
+}
+
+.menuwrap .menu {
+	font-size: 0.7em;
+	border: 1px solid #BBBBBB;
+	background-color: #F5F5F5;
+	margin-top: 7px;
+	padding: 5px;
+}
+
+.menuwrap .menu .titlewrap {
+	font-weight: bold;
+	padding-bottom: 6px;
+}
+
+.menuwrap .menu a {
+	display: block;
+	border-top: 1px solid #CCCCCC;
+	padding: 12px 15px;
+}
+
+.menuwrap .menu a:hover {
+	background-color: #EAEAEA;
+	text-decoration: none;
+}
+
+/* Floating navigation menu styles. */
+.maincontent .proptitle #navbutton {
+	display: none;
+}
+
+.maincontent .proptitle #navdropdown {
+	display: none;
+}

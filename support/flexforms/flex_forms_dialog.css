@@ -1,0 +1,53 @@
+.ff_dialogwrap { -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15); -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15); box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15); position: fixed; max-width: 920px; min-width: 20em; margin: 1em; left: 0; top: 0; box-sizing: border-box; min-height: 10em; max-height: 90vh; z-index: 10001; outline: none; }
+.ff_dialogwrap .ff_dialog_resizer { position: absolute; left: -8px; top: -8px; right: -8px; bottom: -8px; }
+
+.ff_dialog_resize_nwse, .ff_dialog_resize_nwse * { cursor: nwse-resize !important; }
+.ff_dialog_resize_nesw, .ff_dialog_resize_nesw * { cursor: nesw-resize !important; }
+.ff_dialog_resize_ew, .ff_dialog_resize_ew * { cursor: ew-resize !important; }
+.ff_dialog_resize_ns, .ff_dialog_resize_ns * { cursor: ns-resize !important; }
+
+.ff_dialogwrap .ff_dialog_measure_em_size { display: inline-block; position: fixed; left: -9999px; width: 1em; height: 1em; }
+
+.ff_dialogwrap .ff_dialog_innerwrap { border: 1px solid #AAAAAA; background-color: #FFFFFF; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; max-height: 90vh; }
+.ff_dialogwrap.ff_dialog_focused { -webkit-box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.30); -moz-box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.30); box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.30); }
+.ff_dialogwrap.ff_dialog_focused .ff_dialog_innerwrap { border: 1px solid #0063B1; }
+
+.ff_dialogwrap .ff_dialog_titlewrap { display: flex; align-items: center; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; cursor: default; }
+.ff_dialogwrap .ff_dialog_title { flex: 1; font-size: 0.85em; color: #999999; margin-left: 1em; margin-right: 1em; padding: 0.45em 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ff_dialogwrap.ff_dialog_focused .ff_dialog_title { color: inherit; }
+
+.ff_dialogwrap .ff_dialog_close { padding: 0.2em 0.8em; font-size: 1.2em; line-height: 1.1; color: #999999; background-color: #FFFFFF; outline: none; border: 0 none; }
+.ff_dialogwrap .ff_dialog_close::after { content: '\00D7'; }
+.ff_dialogwrap.ff_dialog_focused .ff_dialog_close { color: inherit; }
+.ff_dialogwrap .ff_dialog_close:hover, .ff_dialogwrap .ff_dialog_close:focus { color: #FFFFFF; background-color: #E81123; }
+
+.ff_dialogwrap .ff_formwrap { flex: 1; overflow: hidden; font-size: 0.85em; height: 100%; border-top: 1px solid #F0F0F0; }
+.ff_dialogwrap .ff_formwrapinner { overflow: hidden; height: 100%; }
+.ff_dialogwrap .ff_formwrapinner > form { display: flex; flex-direction: column; overflow: hidden; height: 100%; }
+.ff_dialogwrap .ff_formwrapinner .formfields { flex: 1; overflow: auto; width: 100%; height: 100%; }
+.ff_dialogwrap .ff_formwrapinner .formfieldsinner { padding: 0 1em 1em 1em; }
+.ff_dialogwrap .ff_formwrapinner .formsubmit { margin: 0; padding: 0.5em 0.6em 0.5em; border-top: 1px solid #E0E0E0; }
+.ff_dialogwrap .ff_formwrapinner .formsubmitinner { display: flex; justify-content: center; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .formsubmit input { font-weight: normal; min-width: 7.5em; margin-left: 0.2em; margin-right: 0.2em; }
+
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .formitem { margin-top: 1.1em; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr > td .formitem { margin-top: 0; }
+
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .formitem .formitemdata select { font-size: 1.0em; }
+
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap { margin-top: 1.1em; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap { border-collapse: collapse; width: 100%; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr > td { padding: 1.0em 1.0em 0 0; vertical-align: top; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr:first-child > td { padding-top: 0; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .formfieldsresponsive .fieldtablewrap > table.rowwrap > tbody > tr > td:nth-last-child(2) { padding-right: 0; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr > td:last-child { padding-right: 0; }
+.ff_dialogwrap .ff_formwrap .ff_formwrapinner .fieldtablewrap .formitemtitle { white-space: nowrap; }
+
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .fieldtablewrap { margin-top: 0; }
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap { display: block; }
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody { display: block; }
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr { display: block; }
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .fieldtablewrap > table.rowwrap > tbody > tr > td { display: block; padding: 0; margin-top: 1.0em; max-width: 100%; }
+.ff_dialogwrap.ff_dialogwrap_small .ff_formwrap .ff_formwrapinner .formfieldsresponsive .fieldtablewrap > table.rowwrap > tbody > tr > td:last-child { display: none; }
+
+.ff_dialog_overlay { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 10000; }
