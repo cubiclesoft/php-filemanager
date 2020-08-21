@@ -936,7 +936,7 @@ console.log(e);
 
 						initparams[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'upload_init';
 
-						DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'upload_init', params]);
+						DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'upload_init', initparams]);
 
 						// Prepare the file upload on the server.
 						var xhr = new this.PrepareXHR({
