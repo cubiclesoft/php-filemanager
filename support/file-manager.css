@@ -56,4 +56,5 @@
 .fm_file_editor_wrap .fm_file_editor_clipboard_overlay::-webkit-scrollbar { width: 0px; height: 0px; background: transparent; }
 
 .fm_file_editor_file_explorer_wrap { position: fixed; width: 98vw; max-width: 1200px; height: 80vh; max-height: 500px; -webkit-box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); -moz-box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); box-shadow: 3px 3px 7px -2px rgba(0, 0, 0, 0.15); z-index: 1000; }
+.fm_file_editor_file_explorer_wrap.fm_file_editor_fullscreen { width: 100%; height: 100%; max-width: none; max-height: none; }
 .fm_file_editor_file_explorer_wrap_inner { position: relative; height: 100%; }

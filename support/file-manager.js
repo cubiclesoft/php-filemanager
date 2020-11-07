@@ -93,7 +93,10 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 			ace_modes: [],
 			ace_themes: [],
 
-			onxsrftoken: null,
+			recycling: true,
+			tabbed: true,
+
+			onxhrparams: null,
 
 			langmap: {}
 		};
@@ -395,7 +398,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 		}
 
 		// Register settings callbacks.
-		if ($this.settings.onxsrftoken)  $this.addEventListener('xsrf_token', $this.settings.onxsrftoken);
+		if ($this.settings.onxhrparams)  $this.addEventListener('xhr_params', $this.settings.onxhrparams);
 
 		// Converts a file key string into a tab view.
 		$this.GetActiveTabViewFromFileKey = function(filekey) {
@@ -615,7 +618,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 
 			params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'load_file';
 
-			DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'load_file', params]);
+			DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'load_file', params]);
 
 			return params;
 		};
@@ -626,7 +629,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 
 			params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'save_file';
 
-			DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'save_file', params]);
+			DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'save_file', params]);
 
 			return params;
 		};
@@ -664,7 +667,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'refresh';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'refresh', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'refresh', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -701,7 +704,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'rename';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'rename', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'rename', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -723,6 +726,8 @@ console.log(e);
 				},
 
 				onopenfile: function(folder, entry) {
+					if (!$this.settings.tabbed)  return;
+
 //console.log(entry);
 					$this.HideFileExplorer();
 
@@ -735,7 +740,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'file_info';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'file_info', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'file_info', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -841,7 +846,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'new_folder';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'new_folder', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'new_folder', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -869,7 +874,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'new_file';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'new_file', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'new_file', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -912,7 +917,7 @@ console.log(e);
 
 						fileinfo.params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'new_folder';
 
-						DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'new_folder', fileinfo.params]);
+						DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'new_folder', fileinfo.params]);
 
 						fileinfo.currpathparam = 'currpath';
 
@@ -936,7 +941,7 @@ console.log(e);
 
 						initparams[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'upload_init';
 
-						DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'upload_init', initparams]);
+						DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'upload_init', initparams]);
 
 						// Prepare the file upload on the server.
 						var xhr = new this.PrepareXHR({
@@ -966,7 +971,7 @@ console.log(e);
 
 									fileinfo.params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'upload';
 
-									DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'upload', fileinfo.params]);
+									DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'upload', fileinfo.params]);
 
 									fileinfo.fileparam = 'file';
 									fileinfo.currpathparam = 'currpath';
@@ -1008,7 +1013,7 @@ console.log(e);
 
 					options.params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'download';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'download', options.params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'download', options.params]);
 
 					// Control the download via an in-page iframe (default) vs. form only (new tab).
 					options.iframe = $this.settings.fe_downloadiframe;
@@ -1027,7 +1032,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'download';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'download', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'download', params]);
 
 					for (var x in params)
 					{
@@ -1046,7 +1051,7 @@ console.log(e);
 
 					initparams[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'copy_init';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'copy_init', initparams]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'copy_init', initparams]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -1123,7 +1128,7 @@ console.log(e);
 
 								options.params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'copy';
 
-								DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'copy', options.params]);
+								DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'copy', options.params]);
 
 								// Performs another copy operation cycle.
 								var NextRun = function() {
@@ -1158,7 +1163,7 @@ console.log(e);
 
 					params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + 'move';
 
-					DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + 'move', params]);
+					DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + 'move', params]);
 
 					var xhr = new this.PrepareXHR({
 						url: window.location.href,
@@ -1181,6 +1186,7 @@ console.log(e);
 
 				ondelete: function(deleted, folder, ids, entries, recycle) {
 					// Ask the user if they really want to delete/recycle the items.
+					if (!$this.settings.recycling)  recycle = false;
 					if (!recycle && !confirm('Are you sure you want to permanently delete ' + (entries.length == 1 ? '"' + entries[0].name + '"' : entries.length + ' items') +  '?'))  deleted('Cancelled deletion');
 					else
 					{
@@ -1191,7 +1197,7 @@ console.log(e);
 
 						params[$this.settings.fe_requestvar] = $this.settings.fe_requestprefix + (recycle ? 'recycle' : 'delete');
 
-						DispatchEvent('xsrf_token', [$this.settings.fe_requestprefix + (recycle ? 'recycle' : 'delete'), params]);
+						DispatchEvent('xhr_params', [$this.settings.fe_requestprefix + (recycle ? 'recycle' : 'delete'), params]);
 
 						var xhr = new this.PrepareXHR({
 							url: window.location.href,
@@ -1220,15 +1226,20 @@ console.log(e);
 		}
 
 		$this.ShowFileExplorer = function() {
-			elems.fileexplorerwrap.style.left = elems.buttonfileexplorerwrap.offsetLeft + 'px';
-			elems.fileexplorerwrap.style.top = (elems.openfileswrap.offsetTop + elems.openfileswrap.offsetHeight - 1) + 'px';
+			elems.fileexplorerwrap.style.left = ($this.settings.tabbed ? elems.buttonfileexplorerwrap.offsetLeft : 0) + 'px';
+			elems.fileexplorerwrap.style.top = ($this.settings.tabbed ? (elems.openfileswrap.offsetTop + elems.openfileswrap.offsetHeight - 1) : 0) + 'px';
 			elems.fileexplorerwrap.classList.remove('fm_file_editor_hidden');
+
+			if ($this.settings.tabbed)  elems.fileexplorerwrap.classList.remove('fm_file_editor_fullscreen');
+			else  elems.fileexplorerwrap.classList.add('fm_file_editor_fullscreen');
 
 			$this.settings.fileexplorer.Focus(true, true);
 			$this.settings.fileexplorer.RefreshFolders();
 		};
 
 		$this.HideFileExplorer = function() {
+			if (!$this.settings.tabbed)  return;
+
 			if ($this.settings.fileexplorer.HasFocus())  elems.buttonfileexplorerwrap.focus();
 
 			elems.fileexplorerwrap.classList.add('fm_file_editor_hidden');

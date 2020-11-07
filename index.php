@@ -78,7 +78,7 @@
 
 	$options = array(
 		"protect_depth" => 0,
-		"recycle_to" => BB_Translate("Recycle Bin"),
+		"recycle_to" => ($config["recycling"] ? BB_Translate("Recycle Bin") : false),
 		"temp_dir" => str_replace("\\", "/", sys_get_temp_dir()),
 		"dot_folders" => $config["dot_folders"],  // .git, .svn, .DS_Store
 		"allowed_exts" => $config["file_exts"],
@@ -88,9 +88,9 @@
 		"thumb_create_url" => BB_GetFullRequestURLBase() . "?action=file_explorer_thumbnail&sec_t=" . BB_CreateSecurityToken("file_explorer_thumbnail"),
 		"refresh" => true,
 		"rename" => true,
-		"file_info" => true,
-		"load_file" => true,
-		"save_file" => true,
+		"file_info" => $config["tabbed"],
+		"load_file" => $config["tabbed"],
+		"save_file" => $config["tabbed"],
 		"new_folder" => true,
 		"new_file" => $config["new_file_ext"],
 		"upload" => true,
@@ -100,11 +100,14 @@
 		"download_module_prefix" => "",  // A string to prefix to the filename.  (For URI /protected access mapping for a Nginx X-Accel-Redirect to the system root)
 		"copy" => true,
 		"move" => true,
-		"recycle" => true,
+		"recycle" => $config["recycling"],
 		"delete" => true
 	);
 
 	if ($config["projects_url"] != "")  $options["base_url"] = $config["projects_url"];
+
+	// Allow modification of the options to be passed to the action helper.
+	if (is_callable("ModifyFileExplorerOptions"))  call_user_func_array("ModifyFileExplorerOptions", array(&$options));
 
 	FileExplorerFSHelper::HandleActions("action", "file_explorer_", $config["projects_path"], $options);
 
@@ -115,25 +118,28 @@
 	$acemodes = array();
 	$acethemes = array();
 
-	$dir = @opendir($rootpath . "/support/ace");
-	if ($dir)
+	if ($config["tabbed"])
 	{
-		while (($file = readdir($dir)) !== false)
+		$dir = @opendir($rootpath . "/support/ace");
+		if ($dir)
 		{
-			if (substr($file, -3) !== ".js")  continue;
+			while (($file = readdir($dir)) !== false)
+			{
+				if (substr($file, -3) !== ".js")  continue;
 
-			if (substr($file, 0, 5) === "mode-")  $acemodes[$file] = array("name" => "ace/mode/" . substr($file, 5, -3), "value" => substr($file, 5, -3));
-			if (substr($file, 0, 6) === "theme-")  $acethemes[$file] = array("name" => "ace/theme/" . substr($file, 6, -3), "value" => substr($file, 6, -3));
+				if (substr($file, 0, 5) === "mode-")  $acemodes[$file] = array("name" => "ace/mode/" . substr($file, 5, -3), "value" => substr($file, 5, -3));
+				if (substr($file, 0, 6) === "theme-")  $acethemes[$file] = array("name" => "ace/theme/" . substr($file, 6, -3), "value" => substr($file, 6, -3));
+			}
+
+			closedir($dir);
 		}
 
-		closedir($dir);
+		ksort($acemodes, SORT_NATURAL | SORT_FLAG_CASE);
+		ksort($acethemes, SORT_NATURAL | SORT_FLAG_CASE);
+
+		$acemodes = array_values($acemodes);
+		$acethemes = array_values($acethemes);
 	}
-
-	ksort($acemodes, SORT_NATURAL | SORT_FLAG_CASE);
-	ksort($acethemes, SORT_NATURAL | SORT_FLAG_CASE);
-
-	$acemodes = array_values($acemodes);
-	$acethemes = array_values($acethemes);
 ?>
 <!DOCTYPE html>
 <html>
@@ -149,31 +155,38 @@
 <div id="filemanager"></div>
 
 <script type="text/javascript" src="support/file-explorer/file-explorer.js"></script>
-<script type="text/javascript" src="support/ace/ace.js"></script>
 <script type="text/javascript" src="support/flexforms/flex_forms.js"></script>
+<?php
+	if ($config["tabbed"])
+	{
+?>
+<script type="text/javascript" src="support/ace/ace.js"></script>
 <script type="text/javascript" src="support/flexforms/flex_forms_dialog.js"></script>
+<?php
+	}
+?>
 <script type="text/javascript" src="support/file-manager.js"></script>
 
 <script type="text/javascript">
 (function() {
 	var elem = document.getElementById('filemanager');
 
-	var xsrftokenmap = {
-		'file_explorer_refresh': '<?=BB_CreateSecurityToken("file_explorer_refresh")?>',
-		'file_explorer_rename': '<?=BB_CreateSecurityToken("file_explorer_rename")?>',
-		'file_explorer_file_info': '<?=BB_CreateSecurityToken("file_explorer_file_info")?>',
-		'file_explorer_load_file': '<?=BB_CreateSecurityToken("file_explorer_load_file")?>',
-		'file_explorer_save_file': '<?=BB_CreateSecurityToken("file_explorer_save_file")?>',
-		'file_explorer_new_folder': '<?=BB_CreateSecurityToken("file_explorer_new_folder")?>',
-		'file_explorer_new_file': '<?=BB_CreateSecurityToken("file_explorer_new_file")?>',
-		'file_explorer_upload_init': '<?=BB_CreateSecurityToken("file_explorer_upload_init")?>',
-		'file_explorer_upload': '<?=BB_CreateSecurityToken("file_explorer_upload")?>',
-		'file_explorer_download': '<?=BB_CreateSecurityToken("file_explorer_download")?>',
-		'file_explorer_copy_init': '<?=BB_CreateSecurityToken("file_explorer_copy_init")?>',
-		'file_explorer_copy': '<?=BB_CreateSecurityToken("file_explorer_copy")?>',
-		'file_explorer_move': '<?=BB_CreateSecurityToken("file_explorer_move")?>',
-		'file_explorer_recycle': '<?=BB_CreateSecurityToken("file_explorer_recycle")?>',
-		'file_explorer_delete': '<?=BB_CreateSecurityToken("file_explorer_delete")?>',
+	var xhrparammap = {
+		'file_explorer_refresh': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_refresh")?>' },
+		'file_explorer_rename': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_rename")?>' },
+		'file_explorer_file_info': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_file_info")?>' },
+		'file_explorer_load_file': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_load_file")?>' },
+		'file_explorer_save_file': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_save_file")?>' },
+		'file_explorer_new_folder': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_new_folder")?>' },
+		'file_explorer_new_file': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_new_file")?>' },
+		'file_explorer_upload_init': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_upload_init")?>' },
+		'file_explorer_upload': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_upload")?>' },
+		'file_explorer_download': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_download")?>' },
+		'file_explorer_copy_init': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_copy_init")?>' },
+		'file_explorer_copy': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_copy")?>' },
+		'file_explorer_move': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_move")?>' },
+		'file_explorer_recycle': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_recycle")?>' },
+		'file_explorer_delete': { sec_t: '<?=BB_CreateSecurityToken("file_explorer_delete")?>' },
 	};
 
 	var options = {
@@ -182,10 +195,18 @@
 		ace_modes: <?=json_encode($acemodes, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)?>,
 		ace_themes: <?=json_encode($acethemes, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)?>,
 
-		onxsrftoken: function(action, params) {
-			if (xsrftokenmap[action])  params.sec_t = xsrftokenmap[action];
+		recycling: <?=($config["recycling"] ? "true" : "false")?>,
+		tabbed: <?=($config["tabbed"] ? "true" : "false")?>,
+
+		onxhrparams: function(action, params) {
+			if (xhrparammap[action])  Object.assign(params, xhrparammap[action]);
 		}
 	};
+
+<?php
+	// Allow modification of the 'xhrparammap' and 'options' objects.
+	if (is_callable("ModifyFileManagerOptions"))  call_user_func("ModifyFileManagerOptions");
+?>
 
 	var fm = new window.FileManager(elem, options);
 

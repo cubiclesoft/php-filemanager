@@ -98,6 +98,8 @@ setInterval(function() {
 		if (!isset($_SESSION["fm_admin_install"]["allow_empty_ext"]))  $_SESSION["fm_admin_install"]["allow_empty_ext"] = "Yes";
 		if (!isset($_SESSION["fm_admin_install"]["new_file_ext"]))  $_SESSION["fm_admin_install"]["new_file_ext"] = ".html";
 		if (!isset($_SESSION["fm_admin_install"]["upload_limit"]))  $_SESSION["fm_admin_install"]["upload_limit"] = "20MB";
+		if (!isset($_SESSION["fm_admin_install"]["recycling"]))  $_SESSION["fm_admin_install"]["recycling"] = "Yes";
+		if (!isset($_SESSION["fm_admin_install"]["tabbed"]))  $_SESSION["fm_admin_install"]["tabbed"] = "Yes";
 		if (!isset($_SESSION["fm_admin_install"]["password"]))  $_SESSION["fm_admin_install"]["password"] = "";
 
 		$rng = new CSPRNG(true);
@@ -140,6 +142,8 @@ setInterval(function() {
 					"allow_empty_ext" => ($_REQUEST["allow_empty_ext"] === "Yes"),
 					"new_file_ext" => $_REQUEST["new_file_ext"],
 					"upload_limit" => $_REQUEST["upload_limit"],
+					"recycling" => ($_REQUEST["recycling"] === "Yes"),
+					"tabbed" => ($_REQUEST["tabbed"] === "Yes"),
 					"password" => ($_REQUEST["password"] !== "" ? password_hash($_REQUEST["password"], PASSWORD_DEFAULT) : false)
 				);
 
@@ -246,6 +250,22 @@ setInterval(function() {
 					"name" => "upload_limit",
 					"default" => $_SESSION["fm_admin_install"]["upload_limit"],
 					"desc" => "The maximum file size to allow to be uploaded.  Use -1 for unlimited size."
+				),
+				array(
+					"title" => "Use Recycling Bin",
+					"type" => "select",
+					"name" => "recycling",
+					"options" => array("Yes" => "Yes", "No" => "No"),
+					"default" => $_SESSION["fm_admin_install"]["recycling"],
+					"desc" => "Files that are deleted or overwritten are first placed into a Recycling Bin folder.  Deleting items from the folder must be handled using an external script."
+				),
+				array(
+					"title" => "Use Tabbed Editor/Viewer",
+					"type" => "select",
+					"name" => "tabbed",
+					"options" => array("Yes" => "Yes", "No" => "No"),
+					"default" => $_SESSION["fm_admin_install"]["tabbed"],
+					"desc" => "Don't want/need the tabbed code editor/previewer?  Disabling the tabbed editor/viewer will make File Explorer fill the entire space.  Useful for iframe injection."
 				),
 				array(
 					"title" => "Password",
