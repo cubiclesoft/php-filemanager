@@ -5,7 +5,7 @@ A fantastic mobile-friendly, web-based file manager, code editor, and file previ
 
 ![File Manager and Editor](https://user-images.githubusercontent.com/1432111/90663402-73dc9480-e1fe-11ea-8ea6-d5952d177f15.png)
 
-[![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/)
+[![Donate](https://cubiclesoft.com/res/donate-shield.png)](https://cubiclesoft.com/donate/) [![Discord](https://img.shields.io/discord/777282089980526602?label=chat&logo=discord)](https://cubiclesoft.com/product-support/github/)
 
 If you use this project, don't forget to donate to support its development!
 
