@@ -143,6 +143,11 @@
 
 		$this.UpdateContent();
 
+		// Returns the internal elements object for easier access to various elements.
+		$this.GetElements = function() {
+			return elems;
+		};
+
 		// Set up focusing rules.
 		var lastactiveelem = document.activeElement;
 		var hasfocus = false;
