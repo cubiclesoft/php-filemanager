@@ -74,6 +74,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 			messagetimeout: 2000,
 
 			fileexplorer: null,
+			fe_group: null,
 			fe_capturebrowser: true,
 			fe_initpath: [
 				[ '', '/' ]
@@ -638,7 +639,7 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 		if (!$this.settings.fileexplorer)
 		{
 			var feoptions = {
-				group: window.location.href,
+				group: ($this.settings.fe_group ? $this.settings.fe_group : window.location.href),
 
 				capturebrowser: $this.settings.fe_capturebrowser,
 
