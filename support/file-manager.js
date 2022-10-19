@@ -531,15 +531,6 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 				{
 					$this.SetNamedStatusBarText('message', '');
 
-					// Remove the tab views.
-					for (var x = 0; x < openfilesmap[origactivefile].tabviews.length; x++)
-					{
-						var tabname = openfilesmap[origactivefile].tabviews[x];
-						var tabview = openfilesmap[origactivefile].tabviewmap[tabname];
-
-						tabview.Destroy.call($this);
-					}
-
 					var pos = openfilesmap[origactivefile].tabpos;
 
 					// Switch tabs.
@@ -550,6 +541,15 @@ f.subarray(0,c):f.slice(0,c)};E||(r.TextDecoder=x,r.TextEncoder=y)})(""+void 0==
 						if (node.nextSibling)  $this.ActivateTab(node.nextSibling.dataset.file_key);
 						else if (node.previousSibling)  $this.ActivateTab(node.previousSibling.dataset.file_key);
 						else  activefile = false;
+					}
+
+					// Remove the tab views.
+					for (var x = 0; x < openfilesmap[origactivefile].tabviews.length; x++)
+					{
+						var tabname = openfilesmap[origactivefile].tabviews[x];
+						var tabview = openfilesmap[origactivefile].tabviewmap[tabname];
+
+						tabview.Destroy.call($this);
 					}
 
 					// Remove the tab.
@@ -2256,9 +2256,9 @@ console.log(e);
 									type: 'select',
 									name: 'foldStyle',
 									options: [
-										{ name: 'markbegin', value: 'Mark beginning of code folds' },
-										{ name: 'markbeginend', value: 'Mark beginning and end of code folds' },
-										{ name: 'manual', value: 'Manual code folds' }
+										{ key: 'markbegin', display: 'Mark beginning of code folds' },
+										{ key: 'markbeginend', display: 'Mark beginning and end of code folds' },
+										{ key: 'manual', display: 'Manual code folds' }
 									],
 									default: settings.foldStyle
 								},
@@ -2339,9 +2339,9 @@ console.log(e);
 									type: 'select',
 									name: 'wrap',
 									options: [
-										{ name: 'off', value: 'Off' },
-										{ name: 'free', value: 'On' },
-										{ name: 'printMargin', value: 'Print Margin' }
+										{ key: 'off', display: 'Off' },
+										{ key: 'free', display: 'On' },
+										{ key: 'printMargin', display: 'Print Margin' }
 									],
 									default: settings.wrap
 								},
@@ -2360,11 +2360,11 @@ console.log(e);
 									type: 'select',
 									name: 'keyboardHandler',
 									options: [
-										{ name: '', value: 'Default' },
-										{ name: 'ace/keyboard/vim', value: 'Vim' },
-										{ name: 'ace/keyboard/emacs', value: 'Emacs' },
-										{ name: 'ace/keyboard/sublime', value: 'Sublime' },
-										{ name: 'ace/keyboard/vscode', value: 'Visual Studio Code' }
+										{ key: '', display: 'Default' },
+										{ key: 'ace/keyboard/vim', display: 'Vim' },
+										{ key: 'ace/keyboard/emacs', display: 'Emacs' },
+										{ key: 'ace/keyboard/sublime', display: 'Sublime' },
+										{ key: 'ace/keyboard/vscode', display: 'Visual Studio Code' }
 									],
 									default: settings.keyboardHandler
 								},
@@ -2374,11 +2374,11 @@ console.log(e);
 									type: 'select',
 									name: 'cursorStyle',
 									options: [
-										{ name: 'ace', value: 'Default' },
-										{ name: 'slim', value: 'Slim' },
-										{ name: 'smooth', value: 'Smooth blink' },
-										{ name: 'smooth slim', value: 'Slim and smooth blink' },
-										{ name: 'wide', value: 'Wide/No blink' }
+										{ key: 'ace', display: 'Default' },
+										{ key: 'slim', display: 'Slim' },
+										{ key: 'smooth', display: 'Smooth blink' },
+										{ key: 'smooth slim', display: 'Slim and smooth blink' },
+										{ key: 'wide', display: 'Wide/No blink' }
 									],
 									default: settings.cursorStyle
 								},
@@ -2398,9 +2398,9 @@ console.log(e);
 									type: 'select',
 									name: 'newLineMode',
 									options: [
-										{ name: 'auto', value: 'Automatic' },
-										{ name: 'unix', value: 'Unix' },
-										{ name: 'windows', value: 'Windows' }
+										{ key: 'auto', display: 'Automatic' },
+										{ key: 'unix', display: 'Unix' },
+										{ key: 'windows', display: 'Windows' }
 									],
 									default: settings.newLineMode
 								},
@@ -2435,9 +2435,9 @@ console.log(e);
 									type: 'select',
 									name: 'mergeUndoDeltas',
 									options: [
-										{ name: 'false', value: 'Never (recommended)' },
-										{ name: 'true', value: 'Timed (slightly buggy)' },
-										{ name: 'always', value: 'Always (slightly buggy)' }
+										{ key: 'false', display: 'Never (recommended)' },
+										{ key: 'true', display: 'Timed (slightly buggy)' },
+										{ key: 'always', display: 'Always (slightly buggy)' }
 									],
 									default: (settings.mergeUndoDeltas === true ? 'true' : (settings.mergeUndoDeltas === false ? 'false' : 'always'))
 								},

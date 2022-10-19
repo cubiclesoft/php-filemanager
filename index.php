@@ -127,8 +127,8 @@
 			{
 				if (substr($file, -3) !== ".js")  continue;
 
-				if (substr($file, 0, 5) === "mode-")  $acemodes[$file] = array("name" => "ace/mode/" . substr($file, 5, -3), "value" => substr($file, 5, -3));
-				if (substr($file, 0, 6) === "theme-")  $acethemes[$file] = array("name" => "ace/theme/" . substr($file, 6, -3), "value" => substr($file, 6, -3));
+				if (substr($file, 0, 5) === "mode-")  $acemodes[$file] = array("key" => "ace/mode/" . substr($file, 5, -3), "display" => substr($file, 5, -3));
+				if (substr($file, 0, 6) === "theme-")  $acethemes[$file] = array("key" => "ace/theme/" . substr($file, 6, -3), "display" => substr($file, 6, -3));
 			}
 
 			closedir($dir);
