@@ -1,5 +1,5 @@
 // FlexForms Javascript base and Designer classes.
-// (C) 2020 CubicleSoft.  All Rights Reserved.
+// (C) 2022 CubicleSoft.  All Rights Reserved.
 
 (function() {
 	if (window.hasOwnProperty('FlexForms'))  return;
@@ -252,7 +252,7 @@
 			"'": '&#039;'
 		};
 
-		return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+		return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
 	}
 
 	var FormatStr = function(format) {
@@ -694,6 +694,10 @@
 			{
 				// Do nothing if type is not specified.
 			}
+			else if (field.type === 'hidden')
+			{
+				state.html += '<input type="hidden" id="' + EscapeHTML(id) + '" name="' + EscapeHTML(field.name) + '" value="' + EscapeHTML(field.value) + '" /></div>';
+			}
 			else if (state.customfieldtypes.hasOwnProperty(field.type))
 			{
 				// Output custom fields.
@@ -770,7 +774,7 @@
 					case 'password':
 					{
 						state.html += '<div class="formitemdata">';
-						state.html += '<div class="textitemwrap"' + (field.hasOwnProperty('width') ? ' style="' + ($this.settings.responsive ? 'max-' : '') + 'width: ' + EscapeHTML(field.width) + ';"' : '') + '><input class="text" type="' + field.type + '" id="' + EscapeHTML(id) + '" name="' + EscapeHTML(field.name) + '" value="' + EscapeHTML(field.value) + '"' + (field.focus ? ' autofocus' : '') + ' /></div>';
+						state.html += '<div class="textitemwrap"' + (field.hasOwnProperty('width') ? ' style="' + ($this.settings.responsive ? 'max-' : '') + 'width: ' + EscapeHTML(field.width) + ';"' : '') + '><input class="text" type="' + EscapeHTML(field.hasOwnProperty('subtype') ? field.subtype : field.type) + '" id="' + EscapeHTML(id) + '" name="' + EscapeHTML(field.name) + '" value="' + EscapeHTML(field.value) + '"' + (field.focus ? ' autofocus' : '') + ' /></div>';
 						state.html += '</div>';
 
 						break;
@@ -818,20 +822,41 @@
 
 							for (var x = 0; x < field.options.length; x ++)
 							{
-								var name = field.options[x].name;
-								var value = field.options[x].value;
-
-								if (Array.isArray(value))
+								// Fix confusing legacy name/value keys.
+								if (field.options[x].name && field.options[x].value)
 								{
-									for (var x2 = 0; x2 < value.length; x2++)
+									if (Array.isArray(field.options[x].value))
 									{
-										var name2 = value[x2].name;
-										var value2 = value[x2].value;
+										field.options[x].display = field.options[x].key;
+										field.options[x].values = field.options[x].value;
+									}
+									else
+									{
+										field.options[x].key = field.options[x].name;
+										field.options[x].display = field.options[x].value;
+									}
+								}
+
+								var display = field.options[x].display;
+
+								if (field.options[x].values && Array.isArray(field.options[x].values))
+								{
+									for (var x2 = 0; x2 < field.options[x].values.length; x2++)
+									{
+										// Fix confusing legacy name/value keys.
+										if (field.options[x].values[x2].name && field.options[x].values[x2].value)
+										{
+											field.options[x].values[x2].key = field.options[x].values[x2].name;
+											field.options[x].values[x2].display = field.options[x].values[x2].value;
+										}
+
+										var key2 = field.options[x].values[x2].key;
+										var display2 = field.options[x].values[x2].display;
 										var id2 = EscapeHTML(idbase + (idnum ? '_' + idnum : ''));
 
 										state.html += '<div class="' + mode + 'itemwrap"' + stylewidth + '>';
-										state.html += '<input class="' + mode + '" type="' + mode + '" id="' + id2 + '" name="' + EscapeHTML(field.name + (mode === 'checkbox' ? '[]' : '')) + '" value="' + EscapeHTML(name2) + '"' + (field.select.hasOwnProperty(name2) ? ' checked' : '') + (field.focus ? ' autofocus' : '') + ' />';
-										state.html += ' <label for="' + id2 + '">' + EscapeHTML(name) + ' - ' + (value2 == '' ? '&nbsp;' : EscapeHTML($this.Translate(value2))) + '</label>';
+										state.html += '<input class="' + mode + '" type="' + mode + '" id="' + id2 + '" name="' + EscapeHTML(field.name + (mode === 'checkbox' ? '[]' : '')) + '" value="' + EscapeHTML(key2) + '"' + (field.select.hasOwnProperty(key2) ? ' checked' : '') + (field.focus ? ' autofocus' : '') + ' />';
+										state.html += ' <label for="' + id2 + '">' + EscapeHTML($this.Translate(display)) + ' - ' + (display2 == '' ? '&nbsp;' : EscapeHTML($this.Translate(display2))) + '</label>';
 										state.html += '</div>';
 
 										idnum++;
@@ -839,11 +864,12 @@
 								}
 								else
 								{
+									var key = field.options[x].key;
 									var id2 = EscapeHTML(idbase + (idnum ? '_' + idnum : ''));
 
 									state.html += '<div class="' + mode + 'itemwrap"' + stylewidth + '>';
-									state.html += '<input class="' + mode + '" type="' + mode + '" id="' + id2 + '" name="' + EscapeHTML(field.name + (mode === 'checkbox' ? '[]' : '')) + '" value="' + EscapeHTML(name) + '"' + (field.select.hasOwnProperty(name) ? ' checked' : '') + (field.focus ? ' autofocus' : '') + ' />';
-									state.html += ' <label for="' + id2 + '">' + (value == '' ? '&nbsp;' : EscapeHTML($this.Translate(value))) + '</label>';
+									state.html += '<input class="' + mode + '" type="' + mode + '" id="' + id2 + '" name="' + EscapeHTML(field.name + (mode === 'checkbox' ? '[]' : '')) + '" value="' + EscapeHTML(key) + '"' + (field.select.hasOwnProperty(key) ? ' checked' : '') + (field.focus ? ' autofocus' : '') + ' />';
+									state.html += ' <label for="' + id2 + '">' + (display == '' ? '&nbsp;' : EscapeHTML($this.Translate(display))) + '</label>';
 									state.html += '</div>';
 
 									idnum++;
@@ -857,26 +883,49 @@
 
 							for (var x = 0; x < field.options.length; x ++)
 							{
-								var name = field.options[x].name;
-								var value = field.options[x].value;
-
-								if (Array.isArray(value))
+								// Fix confusing legacy name/value keys.
+								if (field.options[x].name && field.options[x].value)
 								{
-									state.html += '<optgroup label="' + EscapeHTML($this.Translate(name)) + '">';
-
-									for (var x2 = 0; x2 < value.length; x2++)
+									if (Array.isArray(field.options[x].value))
 									{
-										var name2 = value[x2].name;
-										var value2 = value[x2].value;
+										field.options[x].display = field.options[x].key;
+										field.options[x].values = field.options[x].value;
+									}
+									else
+									{
+										field.options[x].key = field.options[x].name;
+										field.options[x].display = field.options[x].value;
+									}
+								}
 
-										state.html += '<option value="' + EscapeHTML(name2) + '"' + (field.select.hasOwnProperty(name2) ? ' selected' : '') + '>' + (value2 == '' ? '&nbsp;' : EscapeHTML($this.Translate(value2))) + '</option>';
+								var display = field.options[x].display;
+
+								if (field.options[x].values && Array.isArray(field.options[x].values))
+								{
+									state.html += '<optgroup label="' + EscapeHTML($this.Translate(display)) + '">';
+
+									for (var x2 = 0; x2 < field.options[x].values.length; x2++)
+									{
+										// Fix confusing legacy name/value keys.
+										if (field.options[x].values[x2].name && field.options[x].values[x2].value)
+										{
+											field.options[x].values[x2].key = field.options[x].values[x2].name;
+											field.options[x].values[x2].display = field.options[x].values[x2].value;
+										}
+
+										var key2 = field.options[x].values[x2].key;
+										var display2 = field.options[x].values[x2].display;
+
+										state.html += '<option value="' + EscapeHTML(key2) + '"' + (field.select.hasOwnProperty(key2) ? ' selected' : '') + '>' + (display2 == '' ? '&nbsp;' : EscapeHTML($this.Translate(display2))) + '</option>';
 									}
 
 									state.html += '</optgroup>';
 								}
 								else
 								{
-									state.html += '<option value="' + EscapeHTML(name) + '"' + (field.select.hasOwnProperty(name) ? ' selected' : '') + '>' + (value == '' ? '&nbsp;' : EscapeHTML($this.Translate(value))) + '</option>';
+									var key = field.options[x].key;
+
+									state.html += '<option value="' + EscapeHTML(key) + '"' + (field.select.hasOwnProperty(key) ? ' selected' : '') + '>' + (display == '' ? '&nbsp;' : EscapeHTML($this.Translate(display))) + '</option>';
 								}
 							}
 

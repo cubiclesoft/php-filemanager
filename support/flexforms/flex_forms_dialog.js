@@ -1,5 +1,5 @@
 // FlexForms Javascript Dialog class.
-// (C) 2020 CubicleSoft.  All Rights Reserved.
+// (C) 2022 CubicleSoft.  All Rights Reserved.
 
 (function() {
 	if (!window.hasOwnProperty('FlexForms') || !window.FlexForms.hasOwnProperty('Designer'))
@@ -123,9 +123,14 @@
 
 			e.preventDefault();
 
-			var formvars = FlexForms.GetFormVars(elems.formnode, e);
+			$this.settings.request = FlexForms.GetFormVars(elems.formnode, e);
 
-			DispatchEvent('submit', [formvars, elems.formnode, e]);
+			DispatchEvent('submit', [$this.settings.request, elems.formnode, e, lastactiveelem]);
+		};
+
+		// Useful helper function to return whether or not the errors object contains errors.
+		$this.HasErrors = function() {
+			return (Object.keys($this.settings.errors).length > 0);
 		};
 
 		// Regenerate and append the form.
@@ -163,7 +168,12 @@
 			{
 				hasfocus = false;
 
-				if ($this.settings.modal)  elems.mainwrap.focus();
+				if ($this.settings.modal)
+				{
+					e.preventDefault();
+
+					elems.mainwrap.focus();
+				}
 				else
 				{
 					elems.mainwrap.classList.remove('ff_dialog_focused');
@@ -628,6 +638,25 @@
 
 		var MainKeyHandler = function(e) {
 			if (e.keyCode == 27)  $this.Close(e);
+
+			if (e.keyCode == 13 && e.target === elems.mainwrap)
+			{
+				// Locate the first button.
+				var buttonnode = elems.formnode.querySelector('input[type=submit]');
+
+				if (buttonnode)
+				{
+					var tempevent = {
+						isTrusted: true,
+						target: elems.formnode,
+						submitter: buttonnode
+					};
+
+					$this.settings.request = FlexForms.GetFormVars(elems.formnode, tempevent);
+
+					DispatchEvent('submit', [$this.settings.request, elems.formnode, tempevent, lastactiveelem]);
+				}
+			}
 		};
 
 		elems.mainwrap.addEventListener('keydown', MainKeyHandler);
@@ -683,5 +712,97 @@
 		};
 	};
 
+	var AlertDialogInternal = function(title, content, closecallback, timeout) {
+		var timer;
+
+		var dlgoptions = {
+			title: title,
+
+			content: (typeof(content) !== 'string' ? content : {
+				fields: [
+					{
+						type: 'custom',
+						value: '<div class="staticwrap">' + EscapeHTML(Translate(content)).replaceAll('\n', '<br>\n') + '</div>'
+					}
+				],
+				submit: ['OK'],
+				submitname: 'submit'
+			}),
+
+			onsubmit: function(dlgformvars, dlgformnode, e, lastactivelem) {
+				if (timer)  clearTimeout(timer);
+
+				this.Destroy();
+
+				lastactivelem.focus();
+
+				if (typeof(closecallback) === 'function')  closecallback();
+			},
+
+			onclose: function(lastactivelem) {
+				if (timer)  clearTimeout(timer);
+
+				this.Destroy();
+
+				lastactivelem.focus();
+
+				if (typeof(closecallback) === 'function')  closecallback();
+			}
+		};
+
+		var dlg = FlexForms.Dialog(document.body, dlgoptions);
+
+		if (timeout > 0)  timer = setTimeout(function() { dlg.Close(); }, timeout);
+
+		return dlg;
+	};
+
+	var ConfirmDialogInternal = function(title, content, yesbutton, nobutton, yescallback, nocallback, closecallback) {
+		var dlgoptions = {
+			title: title,
+
+			content: (typeof(content) !== 'string' ? content : {
+				fields: [
+					{
+						type: 'custom',
+						value: '<div class="staticwrap">' + EscapeHTML(Translate(content)).replaceAll('\n', '<br>\n') + '</div>'
+					}
+				],
+				submit: [yesbutton, nobutton],
+				submitname: 'submit'
+			}),
+
+			onsubmit: function(dlgformvars, dlgformnode, e, lastactivelem) {
+				this.Destroy();
+
+				lastactivelem.focus();
+
+				if (dlgformvars.submit === Translate(yesbutton))
+				{
+					if (typeof(yescallback) === 'function')  yescallback(1);
+				}
+				else
+				{
+					if (typeof(nocallback) === 'function')  nocallback(0);
+				}
+			},
+
+			onclose: function(lastactivelem) {
+				this.Destroy();
+
+				lastactivelem.focus();
+
+				if (typeof(closecallback) === 'function')  closecallback(-1);
+				else if (typeof(nocallback) === 'function')  nocallback(-1);
+			}
+		};
+
+		var dlg = FlexForms.Dialog(document.body, dlgoptions);
+
+		return dlg;
+	};
+
 	window.FlexForms.Dialog = DialogInternal;
+	window.FlexForms.Dialog.Alert = AlertDialogInternal;
+	window.FlexForms.Dialog.Confirm = ConfirmDialogInternal;
 })();
