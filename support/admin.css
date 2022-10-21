@@ -71,13 +71,14 @@ a:hover { color: #297ACC; text-decoration: underline; }
 .formitemdata table.formitemtable > tbody > tr:last-child { border-bottom: 1px solid #CCCCCC; }
 .formitemdata table.formitemtable > tbody > tr > td.nowrap { white-space: nowrap; }
 
+.formitemdata .textitemwrap > input { outline: none; }
 .formitemdata .textitemwrap > input.text { box-sizing: border-box; width: 100%; font-size: 0.9em; padding: 0.3em; border: 1px solid #BBBBBB; }
 .formitemdata .textitemwrap > input.text:focus, .formitemdata .textitemwrap > input.text:hover { border: 1px solid #888888; }
 
-.formitemdata .textareawrap > textarea { box-sizing: border-box; width: 100%; font-size: 0.9em; padding: 0.3em; border: 1px solid #BBBBBB; }
+.formitemdata .textareawrap > textarea { box-sizing: border-box; width: 100%; font-size: 0.9em; padding: 0.3em; border: 1px solid #BBBBBB; outline: none; }
 .formitemdata .textareawrap > textarea:focus, .formitemdata .textareawrap > textarea:hover { border: 1px solid #888888; }
 
-.formitemdata .selectitemwrap > select { box-sizing: border-box; width: 100%; font-size: 0.9em; padding: 0.3em; border: 1px solid #BBBBBB; }
+.formitemdata .selectitemwrap > select { box-sizing: border-box; width: 100%; font-size: 0.9em; padding: 0.3em; border: 1px solid #BBBBBB; outline: none; }
 .formitemdata .selectitemwrap > select:focus, .formitemdata .selectitemwrap > select:hover { border: 1px solid #888888; }
 
 .formitemdata .radioitemwrap, .formitemdata .checkboxitemwrap { margin-left: 1.7em; text-indent: -1.7em; }
@@ -100,7 +101,7 @@ hr { margin: 1.0em 0 0 0; border: none; border-top: 1px solid #CCCCCC; }
 .formitemresult .formitemerror { background: url('flex_forms_error.png') 0 0.1em no-repeat; padding-left: 25px; color: #A94442; font-weight: bold; }
 
 form.ff_form .formsubmit { margin-top: 1.2em; margin-right: 1.0em; }
-form.ff_form .formsubmit input { padding: 0.3em 1.0em; font-weight: bold; font-size: 1.0em; background-color: #222222; color: #FAFAFA; border: 1px solid #222222; }
+form.ff_form .formsubmit input { margin-right: 1.0em; padding: 0.3em 1.0em; font-weight: bold; font-size: 1.0em; background-color: #222222; color: #FAFAFA; border: 1px solid #222222; }
 form.ff_form .formsubmit input:hover { background-color: #444444; color :#FFFFFF; }
 
 @media (max-width: 420px) {
