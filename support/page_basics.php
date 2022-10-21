@@ -541,7 +541,7 @@ EOF;
 
 					$data4 = str_replace("@OPTS@", implode(" ", $data5), $bb_menu_item_layout);
 
-					$data3 .= str_replace("@NAME@", htmlspecialchars(BB_Translate($name)), $data4);
+					$data3 .= str_replace("@NAME@", (substr($name, 0, 5) === "html:" ? BB_Translate(substr($name, 5)) : htmlspecialchars(BB_Translate($name))), $data4);
 				}
 
 				$data3 = str_replace("@ITEMS@", $data3, $bb_menu_layout);
