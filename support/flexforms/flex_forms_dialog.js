@@ -166,10 +166,10 @@
 			if (node === elems.mainwrap)  elems.mainwrap.classList.add('ff_dialog_focused');
 			else
 			{
-				hasfocus = false;
-
 				if ($this.settings.modal)
 				{
+					hasfocus = false;
+
 					e.preventDefault();
 
 					elems.mainwrap.focus();
@@ -184,6 +184,8 @@
 
 						$this.Close();
 					}
+
+					hasfocus = false;
 				}
 			}
 		};
